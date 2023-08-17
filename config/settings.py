@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'mailing_form',
+    'mailing',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mailing_form',
+        'NAME': 'mailing',
         'USER': 'postgres',
         'PASSWORD': 'qwerty',
         'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
