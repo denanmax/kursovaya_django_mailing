@@ -25,8 +25,9 @@ class Customer(models.Model):
 
 
 class Message(models.Model):
-    subject = models.CharField(max_length=150, **NULLABLE, verbose_name='Тема Сообщения')
+    subject = models.CharField(max_length=150, blank=False, verbose_name='Тема Сообщения')
     message = models.TextField(verbose_name='Сообщение')
+    is_active = models.BooleanField(default=True, verbose_name='Активно')
 
     def __str__(self):
         return f'{self.subject}, {self.pk}'
