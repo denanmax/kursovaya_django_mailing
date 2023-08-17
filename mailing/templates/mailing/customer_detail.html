@@ -1,0 +1,31 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">{{ object.email }}</div>
+                    <div class="card-body">
+                        {{ object.name }}
+                        {{ object.surname }}
+                        {% if object.middle_name %}
+                            {{ object.middle_name }}
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        {{ object.comment }}
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'mailing:edit_customer' object.pk %}"
+                                class="btn btn-sm btn-outline secondary">Изменить</a>
+                                <a href="{% url 'mailing:delete_customer' object.pk %}"
+                                class="btn btn-sm btn-outline secondary">Удалить</a>
+                            </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+{% endblock %}
