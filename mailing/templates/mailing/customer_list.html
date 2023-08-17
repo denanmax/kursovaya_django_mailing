@@ -1,0 +1,25 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+    {% for object in object_list %}
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">{{object.email}}</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">{{ object.surname }}</h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                {{ object.name }}
+                {% if object.middle_name %}
+                  {{ object.middle_name }}
+                {% endif %}
+              </ul>
+              <a href="{% url 'mailing:customer_view' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">
+                  О Клиенте
+              </a>
+            </div>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
