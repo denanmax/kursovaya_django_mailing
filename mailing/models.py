@@ -57,6 +57,9 @@ class Sender(models.Model):
     message = models.ForeignKey(Message, verbose_name='Письма', on_delete=models.CASCADE, blank=False,
                                 limit_choices_to={'is_active': True})
 
+    def __str__(self):
+        return f'{self.status}, {self.commence_time}, {self.message}'
+
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = 'Рассылки'

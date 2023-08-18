@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mailing.models import Customer, Message, Sender
+from mailing.models import Customer, Message, Sender, Log
 
 
 # Register your models here.
@@ -18,4 +18,8 @@ class MessgaeAdmin(admin.ModelAdmin):
 @admin.register(Sender)
 class SenderAdmin(admin.ModelAdmin):
     list_display = ('commence_time', 'frequency', 'status', 'message',)
+
+@admin.register(Log)
+class LogAdmin(admin.ModelAdmin):
+    list_display = ('sender', 'last_attempt', 'attempt_status', 'server_respond')
 
