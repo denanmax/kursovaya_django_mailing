@@ -6,8 +6,8 @@ from django.db import models
 # Create your models here.
 
 
-
 NULLABLE = {'blank': True, 'null': True}
+
 
 class Customer(models.Model):
     email = models.EmailField(blank=False, unique=True, verbose_name='почта')
@@ -35,3 +35,44 @@ class Message(models.Model):
     class Meta:
         verbose_name = "Письмо"
         verbose_name_plural = 'Письма'
+
+
+class Sender(models.Model):
+    FREQUENCY_CHOICE = (
+        ('daily', 'ежедневно'),
+        ('weekly', "еженедельно"),
+        ('monthly', "ежемесячно")
+    )
+
+    STATUS_CHOICE = (
+        ('completed', "завершено"),
+        ('created', "создано"),
+        ('commenced', "запущено")
+    )
+
+    commence_time = models.DateTimeField(verbose_name='Время начала рассылки',auto_now_add=True)
+    frequency = models.CharField(choices=FREQUENCY_CHOICE, default='daily', verbose_name='Периодичность рассылки')
+    status = models.CharField(choices=STATUS_CHOICE, default='created', verbose_name='Статус расссылки')
+    customer = models.ManyToManyField(Customer, verbose_name='Клиенты', blank=False)
+    message = models.ForeignKey(Message, verbose_name='Письма', on_delete=models.CASCADE, blank=False,
+                                limit_choices_to={'is_active': True})
+
+    class Meta:
+        verbose_name = "Рассылка"
+        verbose_name_plural = 'Рассылки'
+
+
+class Log(models.Model):
+    STATUS_CHOICES = [
+        ('success', 'успешно'),
+        ('failure', 'провал'),
+    ]
+
+    sender = models.ForeignKey(Sender, verbose_name='Рассылка', on_delete=models.CASCADE)
+    last_attempt = models.DateTimeField(verbose_name='дата и время последней попытки',auto_now_add=True)
+    attempt_status = models.CharField(choices=STATUS_CHOICES, verbose_name='Статус попытки')
+    server_respond = models.CharField(verbose_name='Ответ сервера')
+
+    class Meta:
+        verbose_name = "Лог"
+        verbose_name_plural = 'Логи'

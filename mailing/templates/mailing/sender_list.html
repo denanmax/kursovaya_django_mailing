@@ -1,0 +1,47 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <div class="row mt-2">
+        <div class="col m-2">
+            <h1>Рассылки</h1>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Начало рассылки</th>
+                        <th>Периодичность</th>
+                        <th>Статус</th>
+                        <th>Сообщение</th>
+                        <th>Клиенты</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.commence_time }}</td>
+                        <td>{{ object.frequency }}</td>
+                        <td>{{ object.status }}</td>
+                        <td>{{ object.message }}</td>
+                        <td>
+                            {% for customer in object.customer.all|slice:":3" %}
+                                {{ customer }}
+                            {% endfor %} ...
+                        </td>
+                        <td><a class="btn btn-primary" href="{% url 'mailing:edit_sender' object.pk %}">Редактировать</a></td>
+                        <td><a class="btn btn-danger" href="{% url 'mailing:delete_sender' object.pk %}">Удалить</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col m-2">
+            <a class="btn btn-primary" href="{% url 'mailing:create_sender' %}">Добавить рассылку</a>
+
+        </div>
+    </div>
+
+{% endblock %}
