@@ -1,30 +1,31 @@
 {% extends 'mailing/base.html' %}
-{% load my_tags %}
-{% block content %}
+{% block title %}
+    Логи
+{% endblock %}
+{% block main %}
     <div class="row mt-2">
         <div class="col m-2">
-            <h1>Журнал</h1>
-            <table class="table table-sm">
+            <h1>Логи</h1>
+            <table class="table table-primary table-striped-columns">
                 <thead>
                     <tr>
                         <th>Рассылка</th>
-                        <th>Время попытки</th>
+                        <th>Последняя попытка</th>
                         <th>Статус</th>
-                        <th>Ответ Сервера</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for object in object_list %}
                     <tr>
-                        <td>{{ object.sender }}</td>
+                        <td>{{ object.mailing }}</td>
                         <td>{{ object.last_attempt }}</td>
-                        <td>{{ object.attempt_status }}</td>
-                        <td>{{ object.server_respond }}</td>
+                        <td>{{ object.status }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+
 
 {% endblock %}

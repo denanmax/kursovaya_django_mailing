@@ -1,49 +1,41 @@
 {% extends 'mailing/base.html' %}
-{% load my_tags %}
-{% block content %}
-    <div class="col-12">
-        <div class="row">
-            <div class='col-12'>
-                <div class="card">
-                    <div class="card-body">
-                        <h1>
-                            Письма
-                        </h1>
-                    </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class='col-12'>
-                        <div class="card">
-                            <div class="card-body">
-                                 <div class="col m-2">
-                                   <a type="button" class="btn btn-outline-success" href="{% url 'mailing:create_message' %}">Добавить письмо</a>
-                                 </div>
-                                    <div class="card">
-                                        {% for object in object_list %}
-                                         <div class="card-body">
-                                           <h4 class="bg-success text-white">{{ object.subject }}</h4>
-                                           <p class="border border-success">
-                                               {{ object.message | split }} ...
-                                           </p>
-                                            {% if object.is_active %}
-                                                <span class="badge badge-pill badge-primary">Актуально</span>
-                                            {% else %}
-                                                <span class="badge badge-pill badge-danger">В архиве</span>
-                                            {% endif %}
-                                            <a class="btn btn-primary" href="{% url 'mailing:message_view' object.pk %}">Подробнее</a>
-                                            <a class="btn btn-warning" href="{% url 'mailing:edit_message' object.pk %}">Изменить</a>
-                                            <a class="btn btn-danger" href="{% url 'mailing:delete_message' object.pk %}">Удалить</a>
-                                         </div>
-                                        {% endfor %}
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
+{% block title %}
+    Сообщения
+{% endblock %}
+{% block main %}
+    <div class="row mt-2">
+        <div class="col m-2">
+            <h1>Письма</h1>
+            <div class="row mt-2">
+                <div class="col m-2">
+                    <a class="btn btn-success" href="{% url 'mailing:add_message' %}">Добавить письмо</a>
                 </div>
             </div>
+            <table class="table table-reflow">
+
+                <thead>
+                    <tr class="table-active">
+                        <th>Тема письма</th>
+                        <th>Текст</th>
+                        <th>Редактировать</th>
+                        <th>Удалить</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for object in object_list %}
+                    <tr>
+                        <th scope="row">{{ object.subject }}</th>
+                        <td>{{ object.text | truncatechars:20 }}
+                            <a href="{% url 'mailing:detail_message' object.id %}">Развернуть</a></td>
+                        <td><a class="btn btn-primary" href="{% url 'mailing:edit_message' object.id %}">Редактировать</a></td>
+                        <td><a class="btn btn-outline-danger" href="{% url 'mailing:delete_message' object.id %}">Удалить</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-
 
 
 

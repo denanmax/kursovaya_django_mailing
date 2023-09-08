@@ -1,5 +1,5 @@
 {% load static %}
-<!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,18 +15,10 @@
   </head>
 
   <body>
-  <nav class="navbar navbar-dark bg-primary">
-      <h5 class="my-0 mr-md-auto font-weight-normal text-white">Отправка писем</h5>
-      <nav class="my-2 my-md-0 mr-md-3 text-white">
-        <a class="p-2 text-white" href="{% url 'mailing:customer_list' %}">Клиенты</a>
-        <a class="p-2 text-white" href="{% url 'mailing:message_list' %}">Письма</a>
-        <a class="p-2 text-white" href="{% url 'mailing:sender_list' %}">Рассылки</a>
-      </nav>
-      <a class="btn btn-outline-primary" href="#">Sign up</a>
-   </nav>
-
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-4">{{ title }}</h1>
+    {% include 'mailing/navbar.html' %}
+    <div class="container-fluid text-center">
+        {% block main %}
+        {% endblock %}
     </div>
 
     <div class="container">
@@ -46,10 +38,10 @@
           <div class="col-6 col-md">
             <h5>Добавить</h5>
             <ul class="list-unstyled text-small">
-                <li><a class="p-2" href="{% url 'mailing:create_customer' %}">Добавить Клиента</a></li>
-                <li><a class="p-2" href="{% url 'mailing:create_message' %}">Добавить Письмо</a></li>
-                <li><a class="p-2" href="{% url 'mailing:create_sender' %}">Добавить Рассылку</a></li>
-                <li><a class="p-2" href="{% url 'mailing:log_list' %}">Логи</a></li>
+                <li><a class="p-2" href="#">Добавить Клиента</a></li>
+                <li><a class="p-2" href="#">Добавить Письмо</a></li>
+                <li><a class="p-2" href="#">Добавить Рассылку</a></li>
+                <li><a class="p-2" href="{% url 'mailing:logs' %}">Логи</a></li>
 
             </ul>
           </div>

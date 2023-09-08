@@ -1,25 +1,26 @@
 from django.contrib import admin
 
-from mailing.models import Customer, Message, Sender, Log
+from mailing.models import Client, Message, Mailing, Log
 
 
-# Register your models here.
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'email',)
+    search_fields = ('first_name', 'last_name', 'email',)
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'surname', 'middle_name', 'email')
-    list_filter = ('surname', 'email')
 
 @admin.register(Message)
-class MessgaeAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'message', 'is_active')
-    list_filter = ('subject',)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('subject',)
+    search_fields = ('subject', 'text',)
 
-@admin.register(Sender)
-class SenderAdmin(admin.ModelAdmin):
-    list_display = ('commence_time', 'frequency', 'status', 'message',)
+
+@admin.register(Mailing)
+class MailingAdmin(admin.ModelAdmin):
+    list_display = ('commence_time', 'completion_time', 'status', 'message')
+    list_filter = ('status',)
+
 
 @admin.register(Log)
 class LogAdmin(admin.ModelAdmin):
-    list_display = ('sender', 'last_attempt', 'attempt_status', 'server_respond')
-
+    list_display = ('mailing', 'last_attempt', 'status')

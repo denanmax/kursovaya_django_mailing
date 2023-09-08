@@ -1,0 +1,42 @@
+{% extends 'mailing/base.html' %}
+{% block title %}
+    Клиенты
+{% endblock %}
+{% block main %}
+    <div class="row mt-2">
+        <div class="col m-2">
+            <h1>{{ title }}</h1>
+                <div class="row mt-2">
+                    <div class="col m-2">
+                        <a class="btn btn-success" href="{% url 'mailing:add_client' %}">Добавить клиента</a>
+                
+                    </div>
+                </div>
+            <table class="table table-reflow">
+                <thead>
+                    <tr class="table-active">
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Отчество</th>
+                        <th>email</th>
+                        <th>Редактировать</th>
+                        <th>Удалить</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.first_name }}</td>
+                        <td>{{ object.last_name }}</td>
+                        <td>{{ object.middle_name }}</td>
+                        <td>{{ object.email }}</td>
+                        <td><a class="btn btn-primary" href="{% url 'mailing:edit_client' object.pk %}">Редактировать</a></td>
+                        <td><a type="button" class="btn btn-outline-danger" href="{% url 'mailing:delete_client' object.pk %}">Удалить</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

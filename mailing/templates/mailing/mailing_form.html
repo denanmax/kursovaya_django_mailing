@@ -1,15 +1,12 @@
 {% extends 'mailing/base.html' %}
-{% block title %}
-    Письмо
-{% endblock %}
 {% block main %}
 <div class="col-12" style="margin-top: 50px;">
     <div class="row justify-content-center">
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                <h2>Сообщение</h2>
-                <form method="post">
+                    <h2>{% if object %}Редактировать рассылку{% else %}Добавить рассылку{% endif %}</h2>
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="submit" class="btn btn-primary" value="Сохранить">
@@ -19,4 +16,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

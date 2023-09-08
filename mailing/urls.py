@@ -1,30 +1,26 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
-from mailing.apps import MailingConfig
-from mailing.views import CustomerListView, CustomerDetailView, CustomerUpdateView, CustomerCreateView, \
-    CustomerDeleteView, MessageListView, MessageCreateView, MessageDetailView, MessageUpdateView, MessageDeleteView, \
-    SenderListView, SenderUpdateView, SenderCreateView, SenderDeleteView, LogListView
+from mailing.views import *
 
-app_name = MailingConfig.name
-
-
-
-
+app_name = 'mailing'
 
 urlpatterns = [
-    path('', CustomerListView.as_view(), name='customer_list'),
-    path('create_customer/', CustomerCreateView.as_view(), name='create_customer'),
-    path('view/<int:pk>/', CustomerDetailView.as_view(), name='customer_view'),
-    path('edit/<int:pk>/', CustomerUpdateView.as_view(), name='edit_customer'),
-    path('delete/<int:pk>/', CustomerDeleteView.as_view(), name='delete_customer'),
-    path('message/', MessageListView.as_view(), name='message_list'),
-    path('create_message', MessageCreateView.as_view(), name='create_message'),
-    path('message<int:pk>/view', MessageDetailView.as_view(), name="message_view"),
-    path('message<int:pk>/edit', MessageUpdateView.as_view(), name="edit_message"),
+    path('', IndexView.as_view(), name="index"),
+    path('mailing', MailingListView.as_view(), name="mailing_list"),
+    path('mailing/add', MailingCreateView.as_view(), name='add_mailing'),
+    path('mailing<int:pk>/delete', MailingDeleteView.as_view(), name="delete_mailing"),
+    path('mailing<int:pk>/edit', MailingUpdateView.as_view(), name="edit_mailing"),
+    path('clients', ClientListView.as_view(), name="clients"),
+    path('messages', MessageListView.as_view(), name="messages"),
+    path('client/add', ClientCreateView.as_view(), name="add_client"),
+    path('client<int:pk>/delete', ClientDeleteView.as_view(), name="delete_client"),
+    path('client<int:pk>/edit', ClientUpdateView.as_view(), name="edit_client"),
+    path('add_message', MessageCreateView.as_view(), name="add_message"),
     path('message<int:pk>/delete', MessageDeleteView.as_view(), name="delete_message"),
-    path('sender/', SenderListView.as_view(), name='sender_list'),
-    path('create_sender', SenderCreateView.as_view(), name="create_sender"),
-    path('sender<int:pk>/edit', SenderUpdateView.as_view(), name="edit_sender"),
-    path('sender<int:pk>/delete', SenderDeleteView.as_view(), name="delete_sender"),
-    path('log/', LogListView.as_view(), name="log_list"),
+    path('message<int:pk>/detail', MessageDetailView.as_view(), name="detail_message"),
+    path('message<int:pk>/edit', MessageUpdateView.as_view(), name="edit_message"),
+    path('logs', LogListView.as_view(), name="logs"),
+
+
 ]

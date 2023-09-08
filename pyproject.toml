@@ -8,6 +8,7 @@ packages = [{include = "kursovaya_django_mailing"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+django-scheduler = "^0.10.1"
 
 
 [build-system]
